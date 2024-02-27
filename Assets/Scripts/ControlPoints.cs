@@ -8,17 +8,20 @@ public class ControlPoints : MonoBehaviour
     float posX;
     float posY;
 
+    public Camera myCamera;
+
     private void OnMouseDown()
     {
-        Dist = Camera.main.WorldToScreenPoint(transform.position);
+        Dist = myCamera.WorldToScreenPoint(transform.position);
         posX = Input.mousePosition.x - Dist.x;
         posY = Input.mousePosition.y - Dist.y;
+
     }
 
     private void OnMouseDrag()
     {
         Vector3 curPos = new Vector3(Input.mousePosition.x - posX, Input.mousePosition.y - posY, Dist.z);
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(curPos);
+        Vector3 worldPos = myCamera.ScreenToWorldPoint(curPos);
         transform.position = worldPos;
     }
 }

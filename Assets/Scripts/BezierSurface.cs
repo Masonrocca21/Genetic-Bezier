@@ -15,6 +15,7 @@ public class BezierSurface : MonoBehaviour
     private List<Vector3> controlPointsSection2;
     private List<Vector3> controlPointsSection3;
     private List<Vector3> controlPointsSection4;
+    private List<Vector3> controlPointsSection5;
     //********************************
 
     //This structure will containe all the vertices inside the mashes
@@ -65,6 +66,7 @@ public class BezierSurface : MonoBehaviour
         controlPointsSection2 = new List<Vector3>();
         controlPointsSection3 = new List<Vector3>();
         controlPointsSection4 = new List<Vector3>();
+        controlPointsSection5 = new List<Vector3>();
 
         for(int i=0; i<5; i++)
         {
@@ -72,6 +74,7 @@ public class BezierSurface : MonoBehaviour
             controlPointsSection2.Add(ControlPoint_Poss[i+5]);
             controlPointsSection3.Add(ControlPoint_Poss[i+10]);
             controlPointsSection4.Add(ControlPoint_Poss[i+15]);
+            controlPointsSection5.Add(ControlPoint_Poss[i+20]);
         }
     }
 
@@ -98,7 +101,8 @@ public class BezierSurface : MonoBehaviour
             CalculateBezierCurve(u, controlPointsSection1),
             CalculateBezierCurve(u, controlPointsSection2),
             CalculateBezierCurve(u, controlPointsSection3),
-            CalculateBezierCurve(u, controlPointsSection4)
+            CalculateBezierCurve(u, controlPointsSection4),
+            CalculateBezierCurve(u, controlPointsSection5)
         };
        
         return CalculateBezierCurve(v, Allpointspos);
