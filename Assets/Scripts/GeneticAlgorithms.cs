@@ -15,71 +15,60 @@ public struct IntRange
             Weight = peso;
         }
     }
-public class GeneticAlgorithms : MonoBehaviour
+public class GeneticAlgorithms 
     {
-        Vector3[] Padre = new Vector3[25];
-        Vector3[] Madre = new Vector3[25];
-        Vector3[] Figlio = new Vector3[25];
-    
-        // Start is called before the first frame update
-        void Start()
-        {
-            
+        private List<Vector3> Child;
+
+        public List<Vector3> GetChild(){
+            return this.Child;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            
-        }
-
-        public void CrossoverSingle(){
-            int taglio = Random.Range(1, 25);
+        public void CrossoverSingle(List<Vector3> Parent1, List<Vector3> Parent2){
+            int taglio = Random.Range(1, Parent1.Count);
             int dominance = Random.Range(1,3);
 
             if (dominance == 1) {
-                for (int i = 0; i < taglio+1; i++) Figlio[i] = Padre[i];
-                for (int i = taglio+1; i < 25; i++) Figlio[i] = Madre[i];
+                for (int i = 0; i < taglio+1; i++) Child.Add(Parent1[i]);
+                for (int i = taglio+1; i < 25; i++) Child.Add(Parent2[i]);
             }
             else {
-                for (int i = 0; i < taglio+1; i++) Figlio[i] = Madre[i];
-                for (int i = taglio+1; i < 25; i++) Figlio[i] = Padre[i];
+                for (int i = 0; i < taglio+1; i++) Child.Add(Parent2[i]);
+                for (int i = taglio+1; i < 25; i++) Child.Add(Parent1[i]);
             }
         }
 
-        public void CrossoverDouble(){
-            int taglio_uno = Random.Range(1,24);
-            int taglio_due = Random.Range(taglio_uno, 25);
+        public void CrossoverDouble(List<Vector3> Parent1, List<Vector3> Parent2){
+            int taglio_uno = Random.Range(1, Parent1.Count - 1);
+            int taglio_due = Random.Range(taglio_uno, Parent1.Count);
             int dominance = Random.Range(1,3);
 
             if (dominance == 1) {
-                for (int i = 0; i< 25; i++){
-                    if (i < taglio_uno + 1 || i > taglio_due) Figlio[i] = Padre[i];
-                    else Figlio[i] = Madre[i];
+                for (int i = 0; i < Parent1.Count; i++){
+                    if (i < taglio_uno + 1 || i > taglio_due) Child.Add(Parent1[i]);
+                    else Child.Add(Parent2[i]);
                 }
             }
             else{
-                for (int i = 0; i< 25; i++){
-                    if (i < taglio_uno + 1 || i > taglio_due) Figlio[i] = Madre[i];
-                    else Figlio[i] = Padre[i];
+                for (int i = 0; i < Parent1.Count; i++){
+                    if (i < taglio_uno + 1 || i > taglio_due) Child.Add(Parent2[i]);
+                    else Child.Add(Parent1[i]);
                 }
             }
         }
 
-        public void CrossoverUniform(){
-            for (int i = 0; i < 25; i++){
-                if (Random.Range(1,3) == 1) Figlio[i] = Padre[i];
-                else Figlio[i] = Madre[i];
+        public void CrossoverUniform(List<Vector3> Parent1, List<Vector3> Parent2){
+            for (int i = 0; i < Parent1.Count; i++){
+                if (Random.Range(1,3) == 1) Child.Add(Parent1[i]);
+                else Child.Add(Parent2[i]);
             }
         }
 
         public void Mutation(){
-            for (int i = 0; i<25; i++){
+            for (int i = 0; i < Child.Count; i++)
+            {
                 int mutation_value = RandomRange.Range(new IntRange(0, 1, 99f), new IntRange(1, 2, 1f));
-                Figlio[i].x += (float) mutation_value*Random.Range(-10, 10);
-                Figlio[i].y += (float) mutation_value*Random.Range(-10, 10);
-                Figlio[i].z += (float) mutation_value*Random.Range(-10, 10);
-                }
+                Child[i] += new Vector3(mutation_value*Random.Range(-10f, 10f), mutation_value*Random.Range(-10f, 10f), mutation_value*Random.Range(-10f, 10f));
+            }
         }
     }
 
