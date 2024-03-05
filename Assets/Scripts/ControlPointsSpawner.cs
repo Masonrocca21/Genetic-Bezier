@@ -32,7 +32,7 @@ public class ControlPointsSpawner : MonoBehaviour
 
         for(int i=0; i< limit; i++)
         {
-            for(int j=4; j>=0; j--)
+            for(int j=limit-1; j>=0; j--)
             {
                 Vector3 delta = new Vector3(i,0, 3*j);
                 GameObject cp_surface1= Instantiate(controlPoint, cp_Surface1.transform.position+delta, Quaternion.identity, cp_Surface1.transform);
@@ -43,7 +43,6 @@ public class ControlPointsSpawner : MonoBehaviour
                 
                 ControlPoints cpScript_2 = cp_surface2.GetComponent<ControlPoints>();
                 cpScript_2.myCamera = myCamera;
-
             }
         }
     }
@@ -55,8 +54,6 @@ public class ControlPointsSpawner : MonoBehaviour
         {
             controlPointsNumber = int.Parse(numberOfControlPoints);
         }
-        Debug.Log(controlPointsNumber);
-
         spawnControlPoints();
     }
 }
