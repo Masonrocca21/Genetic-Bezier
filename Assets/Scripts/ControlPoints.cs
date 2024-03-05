@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class ControlPoints : MonoBehaviour
 {
+    /* Set of variable to take note about the movement of a Control point */
     Vector3 Dist;
     float posX;
     float posY;
 
+    /* Reference to the camera of the scene */
     public Camera myCamera;
 
     public void setMyCamera(Camera camera)

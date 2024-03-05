@@ -19,18 +19,6 @@ public class ChildGeneration : MonoBehaviour
 
     public Camera myCamera;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void StartGenetics()
     {
         Mating = new GeneticAlgorithms();
@@ -69,36 +57,26 @@ public class ChildGeneration : MonoBehaviour
         Child = Mating.GetChild();
         ControlPointsSpawner();
 
-        Debug.Log("Generation finita"); 
+        Debug.Log("Generation Ended"); 
     }
 
-    private List<Vector3> generateControlPointsList(GameObject parent)
+    /* Method that given the Containet of a series of control Points return 
+    a List of Vector3 that contain the positions of this control Points */
+    private List<Vector3> generateControlPointsList(GameObject container)
     {
         List<Vector3> ControlPoint_Poss = new List<Vector3>();
 
-        for(int i=0; i< parent.transform.childCount; i++){
-            ControlPoint_Poss.Add(parent.transform.GetChild(i).localPosition);
+        for(int i=0; i< container.transform.childCount; i++){
+            ControlPoint_Poss.Add(container.transform.GetChild(i).localPosition);
         }
 
         return ControlPoint_Poss;
     }
 
+    /* Method that  after the process of creation is terminated, make spawn
+    the Child surface*/
     private void ControlPointsSpawner(){
         int limit = (int)Math.Sqrt(Child.Count);
-
-        /* for(int i=0; i< limit; i++)
-        {
-            for(int j=limit-1; j>=0; j--)
-            {
-                Vector3 delta = new Vector3(i,0, 3*j);
-                GameObject cp_surface1= Instantiate(controlPoint, ControlPointSurface_child.transform.position+delta, Quaternion.identity, ControlPointSurface_child.transform);
-                
-                ControlPoints cpScript = cp_surface1.GetComponent<ControlPoints>();
-                cpScript.myCamera = myCamera;
-            }
-        } */
-
-        Debug.Log("CP figlio: "+Child.Count);
 
         for(int i=0 ; i < limit*limit; i++)
         {
@@ -109,12 +87,16 @@ public class ChildGeneration : MonoBehaviour
         }
     }
 
+    /* Method connceted to a scroll menu, that the user use
+    to selecet the type of crossover that we will use */
     public void crossoverType(Int32 type)
     {
         crossover = type;
         Debug.Log("Crossover type "+crossover);
     }
 
+    /* Method connceted to a toggle that the user use to select
+    if we do the mutaion or not */
     public void mutation_type(bool tmp_mutatition)
     {
         mutation = tmp_mutatition;

@@ -10,13 +10,6 @@ public class BezierSurface : MonoBehaviour
     //This structure will containe all the position of the Control Point for a Surface
     public List<Vector3> ControlPoint_Poss;
 
-    //******************************
-    private List<Vector3> controlPointsSection1;
-    private List<Vector3> controlPointsSection2;
-    private List<Vector3> controlPointsSection3;
-    private List<Vector3> controlPointsSection4;
-    private List<Vector3> controlPointsSection5;
-
     private List<List<Vector3>> ControlPointsSectionsContainer;
     //********************************
 
@@ -52,7 +45,6 @@ public class BezierSurface : MonoBehaviour
         MakeMesh();
     }
     
-    //
     private void generateControlPointsList()
     {
         ControlPoint_Poss = new List<Vector3>();
@@ -66,7 +58,6 @@ public class BezierSurface : MonoBehaviour
         }
     }
 
-    //Metodo che divide i control Points i 4 sezione da 5 nodi ognuna
     private void divideControlPointsInSection()
     {
         if(ControlPoint_Poss.Count !=0)
@@ -134,15 +125,12 @@ public class BezierSurface : MonoBehaviour
         return Resultt;
     }
 
-
-    //
     public void MakeMesh() 
     {
         MakeProceduralGrid3();
         UpdateMesh();
     }
 
-    //
     public void MakeProceduralGrid3()
     {
         vertices = new Vector3[Num_in_V_Direction * Num_in_U_Direction];
@@ -175,8 +163,6 @@ public class BezierSurface : MonoBehaviour
         }
     }
 
-
-    //
     public void UpdateMesh()
     {
         mesh.Clear();
@@ -184,8 +170,7 @@ public class BezierSurface : MonoBehaviour
         mesh.vertices = vertices;
         mesh.triangles = triangles;
         mesh.RecalculateNormals();
-        
-        
+         
         this.GetComponent<MeshFilter>().sharedMesh = mesh;
     }
 }

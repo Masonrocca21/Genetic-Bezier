@@ -39,23 +39,13 @@ public class GeneticAlgorithms
             } */
 
             if (dominance == 1) {
-                for (int i = 0; i < taglio+1; i++){
-                    Child.Add(Parent1[i]);
-                } 
-                for (int i = taglio+1; i < 25; i++)
-                {
-                    Child.Add(Parent2[i]);
-                } 
-
+                for (int i = 0; i < taglio+1; i++) Child.Add(Parent1[i]);
+                for (int i = taglio+1; i < Parent1.Count; i++) Child.Add(Parent2[i]);
                 
             }
             else {
-                for (int i = 0; i < taglio+1; i++){
-                    Child.Add(Parent2[i]);
-                } 
-                for (int i = taglio+1; i < 25; i++){
-                    Child.Add(Parent1[i]);
-                } 
+                for (int i = 0; i < taglio+1; i++) Child.Add(Parent2[i]); 
+                for (int i = taglio+1; i < Parent1.Count; i++) Child.Add(Parent1[i]);
             }
 
 

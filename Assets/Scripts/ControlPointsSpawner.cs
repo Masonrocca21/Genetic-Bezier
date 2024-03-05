@@ -7,16 +7,14 @@ public class ControlPointsSpawner : MonoBehaviour
 {
     private int controlPointsNumber = 25; 
 
-    //Riferimento al prefab che vogliamo istanziare
+    //Reference to the prefab that we will istantiate as Control Point of the surface
     public GameObject controlPoint;
 
-    //I due gameObject che descrivono il parent in cui andremo ad 
-    //inserire i vari control point delle due superfici
+    /* Reference to the 2 partent Game Object that will contain
+    the control points for the two parent surface */
     public GameObject cp_Surface1;
     public GameObject cp_Surface2;
 
-    //Riferimento alla camera, necessario per settare la camera nel prefab
-    //che andiamo ad istanziare, altrimenti non si muove.
     public Camera myCamera;
     
 
@@ -26,6 +24,9 @@ public class ControlPointsSpawner : MonoBehaviour
         spawnControlPoints();
     }
 
+    /** Method that spaw the control points of the two parent in the scene
+    using a grid disposition. The number of control points must a perfect square
+    and can be given as a input by the user. **/
     private void spawnControlPoints()
     {
         int limit = (int)Math.Sqrt(controlPointsNumber);
@@ -47,7 +48,10 @@ public class ControlPointsSpawner : MonoBehaviour
         }
     }
 
-    //Metodo che legge da input il numero di control Point che vogliamo istanziare
+    /* Method connected to an input field in the UI, that the user can use
+    to give the number of control points.
+    This number mast be a perfect square and less than 144.
+    After the input is given by the User, we start to make spanw the control Points. */
     public void readStringInput(string numberOfControlPoints)
     {
         if(Mathf.Sqrt(int.Parse(numberOfControlPoints)) % 1 ==0 && int.Parse(numberOfControlPoints) <=144)
