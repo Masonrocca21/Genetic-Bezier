@@ -28,6 +28,6 @@ public class ControlPoints : MonoBehaviour
         Vector3 curPos = new Vector3(Input.mousePosition.x - posX, Input.mousePosition.y - posY, Dist.z);
         Vector3 worldPos = myCamera.ScreenToWorldPoint(curPos);
         transform.position = worldPos;
-        Debug.Log("Muovi punto di controllo");
+        //Debug.Log("Muovi punto di controllo");
     }
 }

@@ -15,24 +15,54 @@ public struct IntRange
     }
 public class GeneticAlgorithms 
     {
-        private List<Vector3> Child;
+        private List<Vector3> Child = new List<Vector3>();
 
         public List<Vector3> GetChild(){
             return this.Child;
+        }
+
+        public void ClearChild()
+        {
+            Child.Clear();
         }
 
         public void CrossoverSingle(List<Vector3> Parent1, List<Vector3> Parent2){
             int taglio = Random.Range(1, Parent1.Count);
             int dominance = Random.Range(1,3);
 
+            Debug.Log("Taglio: "+taglio);
+
+            /* for(int i=0; i<25; i++)
+            {
+                Debug.Log("Pos Parent1: "+Parent1[i]);
+                Debug.Log("Pos Parent2: "+Parent2[i]);
+            } */
+
             if (dominance == 1) {
-                for (int i = 0; i < taglio+1; i++) Child.Add(Parent1[i]);
-                for (int i = taglio+1; i < 25; i++) Child.Add(Parent2[i]);
+                for (int i = 0; i < taglio+1; i++){
+                    Child.Add(Parent1[i]);
+                } 
+                for (int i = taglio+1; i < 25; i++)
+                {
+                    Child.Add(Parent2[i]);
+                } 
+
+                
             }
             else {
-                for (int i = 0; i < taglio+1; i++) Child.Add(Parent2[i]);
-                for (int i = taglio+1; i < 25; i++) Child.Add(Parent1[i]);
+                for (int i = 0; i < taglio+1; i++){
+                    Child.Add(Parent2[i]);
+                } 
+                for (int i = taglio+1; i < 25; i++){
+                    Child.Add(Parent1[i]);
+                } 
             }
+
+
+            /* for(int i=0; i<25; i++)
+            {
+                Debug.Log("Pos Child: "+Child[i]);
+            } */
         }
 
         public void CrossoverDouble(List<Vector3> Parent1, List<Vector3> Parent2){
@@ -71,27 +101,27 @@ public class GeneticAlgorithms
     }
 
 public static class RandomRange
+{
+    public static int Range(params IntRange[] ranges)
     {
-        public static int Range(params IntRange[] ranges)
+        if (ranges.Length == 0) throw new System.ArgumentException("At least one range must be included.");
+        if (ranges.Length == 1) return Random.Range(ranges[0].Min, ranges[0].Max);
+
+        float total = 0f;
+        for (int i = 0; i < ranges.Length; i++) total += ranges[i].Weight;
+
+        float r = Random.value;
+        float s = 0f;
+
+        int cnt = ranges.Length - 1;
+        for (int i = 0; i < cnt; i++)
         {
-            if (ranges.Length == 0) throw new System.ArgumentException("At least one range must be included.");
-            if (ranges.Length == 1) return Random.Range(ranges[0].Max, ranges[0].Min);
- 
-            float total = 0f;
-            for (int i = 0; i < ranges.Length; i++) total += ranges[i].Weight;
- 
-            float r = Random.value;
-            float s = 0f;
- 
-            int cnt = ranges.Length - 1;
-            for (int i = 0; i < cnt; i++)
+            s += ranges[i].Weight / total;
+            if (s >= r)
             {
-                s += ranges[i].Weight / total;
-                if (s >= r)
-                {
-                    return Random.Range(ranges[i].Max, ranges[i].Min);
-                }
+                return Random.Range(ranges[i].Min, ranges[i].Max);
             }
-            return Random.Range(ranges[cnt].Max, ranges[cnt].Min);
         }
+        return Random.Range(ranges[cnt].Min, ranges[cnt].Max);
     }
+}

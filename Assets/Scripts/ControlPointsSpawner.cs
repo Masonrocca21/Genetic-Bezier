@@ -50,7 +50,7 @@ public class ControlPointsSpawner : MonoBehaviour
     //Metodo che legge da input il numero di control Point che vogliamo istanziare
     public void readStringInput(string numberOfControlPoints)
     {
-        if(Mathf.Sqrt(int.Parse(numberOfControlPoints)) % 1 ==0)
+        if(Mathf.Sqrt(int.Parse(numberOfControlPoints)) % 1 ==0 && int.Parse(numberOfControlPoints) <=144)
         {
             controlPointsNumber = int.Parse(numberOfControlPoints);
         }

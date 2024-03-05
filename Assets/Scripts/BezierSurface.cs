@@ -71,21 +71,6 @@ public class BezierSurface : MonoBehaviour
     {
         if(ControlPoint_Poss.Count !=0)
         {
-            /* controlPointsSection1 = new List<Vector3>();
-            controlPointsSection2 = new List<Vector3>();
-            controlPointsSection3 = new List<Vector3>();
-            controlPointsSection4 = new List<Vector3>();
-            controlPointsSection5 = new List<Vector3>();
-
-            for(int i=0; i<5; i++)
-            {
-                controlPointsSection1.Add(ControlPoint_Poss[i]);
-                controlPointsSection2.Add(ControlPoint_Poss[i+5]);
-                controlPointsSection3.Add(ControlPoint_Poss[i+10]);
-                controlPointsSection4.Add(ControlPoint_Poss[i+15]);
-                controlPointsSection5.Add(ControlPoint_Poss[i+20]);
-            } */
-
             ControlPointsSectionsContainer = new List<List<Vector3>>();
             int square = (int)Math.Sqrt(ContainerControlPoints.childCount);
             
@@ -117,16 +102,6 @@ public class BezierSurface : MonoBehaviour
 
     private Vector3 CalculateSurface(float u, float v)
     {
-        /* List<Vector3> Allpointspos = new List<Vector3>
-        {
-            CalculateBezierCurve(u, controlPointsSection1),
-            CalculateBezierCurve(u, controlPointsSection2),
-            CalculateBezierCurve(u, controlPointsSection3),
-            CalculateBezierCurve(u, controlPointsSection4),
-            CalculateBezierCurve(u, controlPointsSection5)
-        }; */
-
-
         List<Vector3> Allpointspos = new List<Vector3>();
         for(int i=0; i< ControlPointsSectionsContainer.Count; i++)
         {

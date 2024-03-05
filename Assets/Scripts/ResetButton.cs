@@ -15,7 +15,7 @@ public class ResetButton : MonoBehaviour
     {
         deleteControlPoints(controlPoints_Surface1);
         deleteControlPoints(controlPoints_Surface2);
-        //deleteControlPoints(controlPoints_Child);
+        deleteControlPoints(controlPoints_Child);
     }
 
 
