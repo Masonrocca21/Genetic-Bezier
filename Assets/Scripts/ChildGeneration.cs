@@ -12,7 +12,7 @@ public class ChildGeneration : MonoBehaviour
     private List<Vector3> Child;
     private List<Vector3> Parent1;
     private List<Vector3> Parent2;
-    private GeneticAlgorithms Mating;
+    public GeneticAlgorithms Mating;
 
     int crossover = 0;
     bool mutation = true;
