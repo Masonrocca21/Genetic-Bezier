@@ -14,10 +14,25 @@ public class ChildGeneration : MonoBehaviour
     private List<Vector3> Parent2;
     public GeneticAlgorithms Mating;
 
+    public GameObject CutPosition1_InputField;
+    public GameObject CutPosition2_InputField;
+    
+    public GameObject toggleMutation;
+
+    private Animation anim_CutPosition1;
+    private Animation anim_CutPosition2;
+    private Animation anim_ToggleMutation;
+
     int crossover = 0;
     bool mutation = true;
 
     public Camera myCamera;
+
+    private void Start() {
+        anim_CutPosition1= CutPosition1_InputField.GetComponent<Animation>();
+        anim_CutPosition2= CutPosition2_InputField.GetComponent<Animation>();
+        anim_ToggleMutation= toggleMutation.GetComponent<Animation>();
+    }
 
     public void StartGenetics()
     {
@@ -91,6 +106,38 @@ public class ChildGeneration : MonoBehaviour
     to selecet the type of crossover that we will use */
     public void crossoverType(Int32 type)
     {
+        switch(type){
+            //Single cut
+            case 0:
+            {
+                if(crossover ==1)
+                {
+                    anim_CutPosition2.Play("cutPosition2Reverse");
+                    anim_ToggleMutation.Play("DownToggleButtonReverse");
+                }
+                else if(crossover==2){
+                    anim_ToggleMutation.Play("DownToggleButtonMid");
+                    anim_CutPosition1.Play();
+                }
+            } break;
+
+            //Double cut
+            case 1:
+            {
+                anim_CutPosition1.Play();
+                anim_CutPosition2.Play();
+                anim_ToggleMutation.Play("DownToggleButton");
+            } break;
+
+            //Uniform Cut
+            case 2:
+            {
+                anim_CutPosition1.Play("cutPosition1Reverse");
+                anim_CutPosition2.Play("cutPosition2Reverse");
+                anim_ToggleMutation.Play("DownToggleButtonReverseTotal");
+            } break;
+        }
+
         crossover = type;
         Debug.Log("Crossover type "+crossover);
     }
