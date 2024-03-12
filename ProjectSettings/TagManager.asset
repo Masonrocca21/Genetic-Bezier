@@ -7,6 +7,8 @@ TagManager:
   - CameraParent1
   - CameraParent2
   - CameraChild
+  - CutPosition1Error
+  - CutPosition2Error
   layers:
   - Default
   - TransparentFX

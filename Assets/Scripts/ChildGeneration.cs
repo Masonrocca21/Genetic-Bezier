@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChildGeneration : MonoBehaviour
 {
@@ -23,6 +24,15 @@ public class ChildGeneration : MonoBehaviour
     private Animation anim_CutPosition2;
     private Animation anim_ToggleMutation;
 
+    private GameObject errorText1;
+    private GameObject errorText2;
+
+    private int CutPosition1=24;
+    private int CutPosition2=24;
+    private bool cutFromTheUser = false;
+
+    int controlPoints_number=25;
+
     int crossover = 0;
     bool mutation = true;
 
@@ -32,13 +42,18 @@ public class ChildGeneration : MonoBehaviour
         anim_CutPosition1= CutPosition1_InputField.GetComponent<Animation>();
         anim_CutPosition2= CutPosition2_InputField.GetComponent<Animation>();
         anim_ToggleMutation= toggleMutation.GetComponent<Animation>();
+
+        errorText1 = GameObject.FindGameObjectWithTag("CutPosition1Error");
+        errorText1.SetActive(false);
+        errorText2 = GameObject.FindGameObjectWithTag("CutPosition2Error");
+        errorText2.SetActive(false);
     }
 
     public void StartGenetics()
     {
         Mating = new GeneticAlgorithms();
 
-        Debug.Log("The Generation is starting0");
+        Debug.Log("The Generation is starting");
         
         Parent1 = generateControlPointsList(ControlPointSurface_uno);
         Parent2 = generateControlPointsList(ControlPointSurface_due);
@@ -48,13 +63,13 @@ public class ChildGeneration : MonoBehaviour
             //Single cut
             case 0:
             {
-                Mating.CrossoverSingle(Parent1, Parent2);
+                Mating.CrossoverSingle(Parent1, Parent2, cutFromTheUser, CutPosition1);
             } break;
 
             //Double cut
             case 1:
             {
-                Mating.CrossoverDouble(Parent1, Parent2);
+                Mating.CrossoverDouble(Parent1, Parent2, cutFromTheUser, CutPosition1, CutPosition2);
             } break;
 
             //Uniform Cut
@@ -148,5 +163,49 @@ public class ChildGeneration : MonoBehaviour
     {
         mutation = tmp_mutatition;
         Debug.Log("Mutation: "+mutation);
+    }
+
+    public void CPnumber(string cpNumber)
+    {
+        if(Mathf.Sqrt(int.Parse(cpNumber)) % 1 ==0 && int.Parse(cpNumber) <=144)
+        {
+            controlPoints_number = int.Parse(cpNumber);
+            errorText1.SetActive(false);
+            errorText2.SetActive(false);
+        }
+    }
+
+    public void cutPosition1(string cut)
+    {
+        int taglio = int.Parse(cut);
+        if(0 < taglio && taglio < CutPosition2 && CutPosition2 < controlPoints_number){
+            CutPosition1 = taglio;
+            errorText1.SetActive(false);
+            cutFromTheUser = true;
+        }
+        else
+        {
+            CutPosition1 = taglio;
+            errorText1.SetActive(true);
+            cutFromTheUser = false;
+        }
+    }
+
+    public void cutPosition2(string cut)
+    {
+        int taglio = int.Parse(cut);
+        if(0 < CutPosition1 && CutPosition1 < taglio && taglio < controlPoints_number)
+        {
+            CutPosition2 = taglio;
+            errorText2.SetActive(false);
+            errorText1.SetActive(false);
+            cutFromTheUser = true;
+        }
+        else
+        {
+            CutPosition2 = taglio;
+            errorText2.SetActive(true);
+            cutFromTheUser = false;
+        }
     }
 }

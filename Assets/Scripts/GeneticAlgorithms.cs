@@ -16,7 +16,6 @@ public struct IntRange
 public class GeneticAlgorithms 
     {
         private List<Vector3> Child = new List<Vector3>();
-        public int Parent1_CP_number=0;
 
         public List<Vector3> GetChild(){
             return this.Child;
@@ -27,63 +26,45 @@ public class GeneticAlgorithms
             Child.Clear();
         }
 
-        public void CrossoverSingle(List<Vector3> Parent1, List<Vector3> Parent2){
-            int cut_Index = Random.Range(1, Parent1.Count);
-            int dominance = Random.Range(1,3);
-
-            Debug.Log("cut_Index: "+cut_Index);
-
-            /* for(int i=0; i<25; i++)
+        public void CrossoverSingle(List<Vector3> Parent1, List<Vector3> Parent2, bool cutFromTheUser, int cutPosition1){
+            if(cutFromTheUser){
+                for (int i = 0; i < cutPosition1+1; i++){
+                    Child.Add(Parent1[i]);
+                }
+                for (int i = cutPosition1+1; i < Parent1.Count; i++) Child.Add(Parent2[i]);
+            }
+            else
             {
-                Debug.Log("Pos Parent1: "+Parent1[i]);
-                Debug.Log("Pos Parent2: "+Parent2[i]);
-            } */
-
-            if (dominance == 1) {
+                int cut_Index = Random.Range(1, Parent1.Count);
+                Debug.Log("cut_Index: "+cut_Index);
                 for (int i = 0; i < cut_Index+1; i++){
                     Child.Add(Parent1[i]);
-                    Parent1_CP_number +=1;
                 }
                 for (int i = cut_Index+1; i < Parent1.Count; i++) Child.Add(Parent2[i]);
-                
             }
-            else {
-                for (int i = 0; i < cut_Index+1; i++) Child.Add(Parent2[i]); 
-                for (int i = cut_Index+1; i < Parent1.Count; i++){
-                    Child.Add(Parent1[i]);
-                    Parent1_CP_number+=1;
-                }
-            }
-
-
-            /* for(int i=0; i<25; i++)
-            {
-                Debug.Log("Pos Child: "+Child[i]);
-            } */
         }
 
-        public void CrossoverDouble(List<Vector3> Parent1, List<Vector3> Parent2){
-            int cut_Index_one = Random.Range(1, Parent1.Count - 1);
-            int cut_Index_two = Random.Range(cut_Index_one, Parent1.Count);
-            int dominance = Random.Range(1,3);
-
-            if (dominance == 1) {
+        public void CrossoverDouble(List<Vector3> Parent1, List<Vector3> Parent2, bool cutFromTheUser, int cutPosition1, int cutPosition2){
+            if(cutFromTheUser)
+            {
                 for (int i = 0; i < Parent1.Count; i++){
-                    if (i < cut_Index_one + 1 || i > cut_Index_two){
+                    if (i < cutPosition1 + 1 || i > cutPosition2){
                         Child.Add(Parent1[i]);
-                        Parent1_CP_number+=1;
                     }
                     else Child.Add(Parent2[i]);
                 }
             }
-            else{
+            else
+            {
+                int cut_Index_one = Random.Range(1, Parent1.Count - 1);
+                int cut_Index_two = Random.Range(cut_Index_one, Parent1.Count);
+                Debug.Log("Cut1 :"+cut_Index_one+" ; Cut2: "+cut_Index_two);
                 for (int i = 0; i < Parent1.Count; i++){
-                    if (i < cut_Index_one + 1 || i > cut_Index_two) Child.Add(Parent2[i]);
-                    else{
+                    if (i < cut_Index_one + 1 || i > cut_Index_two){
                         Child.Add(Parent1[i]);
-                        Parent1_CP_number+=1;
                     }
-                }
+                else Child.Add(Parent2[i]);
+            }
             }
         }
 
@@ -91,7 +72,6 @@ public class GeneticAlgorithms
             for (int i = 0; i < Parent1.Count; i++){
                 if (Random.Range(1,3) == 1){
                     Child.Add(Parent1[i]);
-                    Parent1_CP_number+=1;
                 }
                 else Child.Add(Parent2[i]);
             }
