@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +18,7 @@ public class ChildGeneration : MonoBehaviour
 
     public GameObject CutPosition1_InputField;
     public GameObject CutPosition2_InputField;
-    
+
     public GameObject toggleMutation;
 
     private Animation anim_CutPosition1;
@@ -177,35 +178,59 @@ public class ChildGeneration : MonoBehaviour
 
     public void cutPosition1(string cut)
     {
-        int taglio = int.Parse(cut);
-        if(0 < taglio && taglio < CutPosition2 && CutPosition2 < controlPoints_number){
-            CutPosition1 = taglio;
-            errorText1.SetActive(false);
-            cutFromTheUser = true;
-        }
-        else
-        {
-            CutPosition1 = taglio;
-            errorText1.SetActive(true);
-            cutFromTheUser = false;
-        }
+            Debug.Log("Text = " + CutPosition1_InputField.GetComponent<TMP_InputField>().text);
+            int taglio = int.Parse(cut);
+            if(0 < taglio && taglio < CutPosition2 && CutPosition2 < controlPoints_number){
+                CutPosition1 = taglio;
+                errorText1.SetActive(false);
+                cutFromTheUser = true;
+            }
+            else
+            {
+                CutPosition1 = taglio;
+                errorText1.SetActive(true);
+                cutFromTheUser = false;
+            }
     }
 
     public void cutPosition2(string cut)
     {
-        int taglio = int.Parse(cut);
-        if(0 < CutPosition1 && CutPosition1 < taglio && taglio < controlPoints_number)
+            int taglio = int.Parse(cut);
+            if(0 < CutPosition1 && CutPosition1 < taglio && taglio < controlPoints_number)
+            {
+                CutPosition2 = taglio;
+                errorText2.SetActive(false);
+                errorText1.SetActive(false);
+                cutFromTheUser = true;
+            }
+            else
+            {
+                CutPosition2 = taglio;
+                errorText2.SetActive(true);
+                cutFromTheUser = false;
+            }
+    }
+
+    public void Randomization(){
+        cutFromTheUser = false;
+        errorText1.SetActive(false);
+        errorText2.SetActive(false);
+
+        CutPosition1 = controlPoints_number-1;
+        CutPosition2 = controlPoints_number-1;
+
+        CutPosition1_InputField.GetComponent<TMP_InputField>().text = "Random";
+        CutPosition2_InputField.GetComponent<TMP_InputField>().text = "Random";
+
+    }
+
+    public void Zero_number_input(){
+        Debug.Log("Text = " + CutPosition1_InputField.GetComponent<TMP_InputField>().text);
+
+        if (string.Compare(CutPosition1_InputField.GetComponent<TMP_InputField>().text,"Random") == 0)
         {
-            CutPosition2 = taglio;
-            errorText2.SetActive(false);
-            errorText1.SetActive(false);
-            cutFromTheUser = true;
-        }
-        else
-        {
-            CutPosition2 = taglio;
-            errorText2.SetActive(true);
-            cutFromTheUser = false;
-        }
+            CutPosition1_InputField.GetComponent<TMP_InputField>().text = "0";
+            CutPosition2_InputField.GetComponent<TMP_InputField>().text = "0";
+        } 
     }
 }
