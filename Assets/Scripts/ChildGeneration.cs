@@ -178,7 +178,8 @@ public class ChildGeneration : MonoBehaviour
 
     public void cutPosition1(string cut)
     {
-            Debug.Log("Text = " + CutPosition1_InputField.GetComponent<TMP_InputField>().text);
+        if(!string.Equals(cut, "Random"))
+        {
             int taglio = int.Parse(cut);
             if(0 < taglio && taglio < CutPosition2 && CutPosition2 < controlPoints_number){
                 CutPosition1 = taglio;
@@ -191,10 +192,13 @@ public class ChildGeneration : MonoBehaviour
                 errorText1.SetActive(true);
                 cutFromTheUser = false;
             }
+        }
     }
 
     public void cutPosition2(string cut)
     {
+        if(!string.Equals(cut, "Random"))
+        {
             int taglio = int.Parse(cut);
             if(0 < CutPosition1 && CutPosition1 < taglio && taglio < controlPoints_number)
             {
@@ -209,6 +213,7 @@ public class ChildGeneration : MonoBehaviour
                 errorText2.SetActive(true);
                 cutFromTheUser = false;
             }
+        }
     }
 
     public void Randomization(){
@@ -219,18 +224,7 @@ public class ChildGeneration : MonoBehaviour
         CutPosition1 = controlPoints_number-1;
         CutPosition2 = controlPoints_number-1;
 
-        CutPosition1_InputField.GetComponent<TMP_InputField>().text = "Random";
-        CutPosition2_InputField.GetComponent<TMP_InputField>().text = "Random";
-
-    }
-
-    public void Zero_number_input(){
-        Debug.Log("Text = " + CutPosition1_InputField.GetComponent<TMP_InputField>().text);
-
-        if (string.Compare(CutPosition1_InputField.GetComponent<TMP_InputField>().text,"Random") == 0)
-        {
-            CutPosition1_InputField.GetComponent<TMP_InputField>().text = "0";
-            CutPosition2_InputField.GetComponent<TMP_InputField>().text = "0";
-        } 
+        CutPosition1_InputField.GetComponent<TMP_InputField>().text="Random";
+        CutPosition2_InputField.GetComponent<TMP_InputField>().text="Random";
     }
 }
