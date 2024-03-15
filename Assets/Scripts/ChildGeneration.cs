@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,9 +21,22 @@ public class ChildGeneration : MonoBehaviour
 
     public GameObject toggleMutation;
 
+    public GameObject generateChildButton;
+    public GameObject saveChildButton;
+    public GameObject randomButton;
+
+    public TMP_Dropdown parent1Choice;
+    public TMP_Dropdown parent2Choice;
+
+
+    public InputField childName;
     private Animation anim_CutPosition1;
     private Animation anim_CutPosition2;
     private Animation anim_ToggleMutation;
+
+    private Animation anim_generateChildUp;
+    private Animation anim_randomUp;
+    private Animation anim_saveChildIN;
 
     private GameObject errorText1;
     private GameObject errorText2;
@@ -43,6 +56,11 @@ public class ChildGeneration : MonoBehaviour
         anim_CutPosition1= CutPosition1_InputField.GetComponent<Animation>();
         anim_CutPosition2= CutPosition2_InputField.GetComponent<Animation>();
         anim_ToggleMutation= toggleMutation.GetComponent<Animation>();
+        anim_generateChildUp = generateChildButton.GetComponent<Animation>();
+        anim_saveChildIN = saveChildButton.GetComponent<Animation>();
+        anim_randomUp = randomButton.GetComponent<Animation>(); 
+
+
 
         errorText1 = GameObject.FindGameObjectWithTag("CutPosition1Error");
         errorText1.SetActive(false);
@@ -85,10 +103,26 @@ public class ChildGeneration : MonoBehaviour
             Mating.Mutation();
         }
         
+        Child= new List<Vector3>();
         Child = Mating.GetChild();
         ControlPointsSpawner();
 
         Debug.Log("Generation Ended"); 
+    }
+
+    /* Method that  after the process of creation is terminated, make spawn
+    the Child surface*/
+    private void ControlPointsSpawner(){
+        int limit = Child.Count;
+        Debug.Log(limit);
+
+        for(int i=0 ; i < limit; i++)
+        {
+            GameObject cp_surface1= Instantiate(controlPoint, Child[i], Quaternion.identity, ControlPointSurface_child.transform);
+    
+            ControlPoints cpScript = cp_surface1.GetComponent<ControlPoints>();
+            cpScript.myCamera = myCamera;
+        }
     }
 
     /* Method that given the Containet of a series of control Points return 
@@ -104,17 +138,58 @@ public class ChildGeneration : MonoBehaviour
         return ControlPoint_Poss;
     }
 
-    /* Method that  after the process of creation is terminated, make spawn
-    the Child surface*/
-    private void ControlPointsSpawner(){
-        int limit = (int)Math.Sqrt(Child.Count);
+    public void anim_saveChild()
+    {
+        anim_randomUp.Play("randomUp");
+        anim_generateChildUp.Play("generationUp");
+        anim_saveChildIN.Play("saveChildIN");
+    }
 
-        for(int i=0 ; i < limit*limit; i++)
+    public void anim_saveChildOut()
+    {
+        anim_randomUp.Play("randomDown");
+        anim_generateChildUp.Play("generationDown");
+        anim_saveChildIN.Play("saveChildOut");
+    }
+
+    public void saveChild()
+    {   
+        string fileName = childName.text;
+        string child;
+
+        if(!Directory.Exists("./SavedChild")){
+            Directory.CreateDirectory("./SavedChild");
+        }
+
+        if(String.Equals(fileName,""))
         {
-            GameObject cp_surface1= Instantiate(controlPoint, Child[i], Quaternion.identity, ControlPointSurface_child.transform);
-    
-            ControlPoints cpScript = cp_surface1.GetComponent<ControlPoints>();
-            cpScript.myCamera = myCamera;
+            int number = Directory.GetFiles("./SavedChild/", "*").Length;
+            ChildContainer figlio= new ChildContainer(Child.ToArray());
+            child = JsonUtility.ToJson(figlio, true);
+            System.IO.File.WriteAllText("./SavedChild/child"+(number+1)+".json", child);
+
+            parent1Choice.options.Add(new TMP_Dropdown.OptionData("child"+(number+1), null));
+            parent2Choice.options.Add(new TMP_Dropdown.OptionData("child"+(number+1), null));
+        }
+        else{
+            ChildContainer figlio= new ChildContainer(Child.ToArray());
+            child = JsonUtility.ToJson(figlio, true);
+            System.IO.File.WriteAllText("./SavedChild/"+fileName+".json", child);
+
+            parent1Choice.options.Add(new TMP_Dropdown.OptionData(fileName, null));
+            parent2Choice.options.Add(new TMP_Dropdown.OptionData(fileName, null));
+        }
+        parent1Choice.RefreshShownValue();
+        parent2Choice.RefreshShownValue();
+    }
+
+    [Serializable]
+    public class ChildContainer{
+        public Vector3[] CP_surface;
+
+        public ChildContainer(Vector3[] child)
+        {
+            CP_surface = child;
         }
     }
 
@@ -155,7 +230,6 @@ public class ChildGeneration : MonoBehaviour
         }
 
         crossover = type;
-        Debug.Log("Crossover type "+crossover);
     }
 
     /* Method connceted to a toggle that the user use to select
@@ -163,7 +237,6 @@ public class ChildGeneration : MonoBehaviour
     public void mutation_type(bool tmp_mutatition)
     {
         mutation = tmp_mutatition;
-        Debug.Log("Mutation: "+mutation);
     }
 
     public void CPnumber(string cpNumber)
@@ -176,6 +249,7 @@ public class ChildGeneration : MonoBehaviour
         }
     }
 
+    /* Metodo che recupare la posizione del taglio uno dall'input field */
     public void cutPosition1(string cut)
     {
         if(!string.Equals(cut, "Random"))
@@ -195,6 +269,8 @@ public class ChildGeneration : MonoBehaviour
         }
     }
 
+    /* Metodo che recupare la posizione del taglio 2 dall'input field
+    se è selezionata l'opzione doppio taglio */
     public void cutPosition2(string cut)
     {
         if(!string.Equals(cut, "Random"))
@@ -216,7 +292,9 @@ public class ChildGeneration : MonoBehaviour
         }
     }
 
-    public void Randomization(){
+    /* Metodo che resetta gli Input field a Random */
+    public void Randomization()
+    {
         cutFromTheUser = false;
         errorText1.SetActive(false);
         errorText2.SetActive(false);
