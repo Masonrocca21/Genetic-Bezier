@@ -16,28 +16,14 @@ public class ChildGeneration : MonoBehaviour
     private List<Vector3> Parent2;
     public GeneticAlgorithms Mating;
 
-    public GameObject CutPosition1_InputField;
-    public GameObject CutPosition2_InputField;
-
-    public GameObject toggleMutation;
-
-    public GameObject generateChildButton;
-    public GameObject saveChildButton;
-    public GameObject randomButton;
+    public TMP_InputField CutPosition1_InputField;
+    public TMP_InputField CutPosition2_InputField;
 
     public TMP_Dropdown parent1Choice;
     public TMP_Dropdown parent2Choice;
 
 
     public InputField childName;
-    private Animation anim_CutPosition1;
-    private Animation anim_CutPosition2;
-    private Animation anim_ToggleMutation;
-
-    private Animation anim_generateChildUp;
-    private Animation anim_randomUp;
-    private Animation anim_saveChildIN;
-
     private GameObject errorText1;
     private GameObject errorText2;
 
@@ -46,22 +32,12 @@ public class ChildGeneration : MonoBehaviour
     private bool cutFromTheUser = false;
 
     int controlPoints_number=25;
-
     int crossover = 0;
     bool mutation = true;
 
     public Camera myCamera;
 
     private void Start() {
-        anim_CutPosition1= CutPosition1_InputField.GetComponent<Animation>();
-        anim_CutPosition2= CutPosition2_InputField.GetComponent<Animation>();
-        anim_ToggleMutation= toggleMutation.GetComponent<Animation>();
-        anim_generateChildUp = generateChildButton.GetComponent<Animation>();
-        anim_saveChildIN = saveChildButton.GetComponent<Animation>();
-        anim_randomUp = randomButton.GetComponent<Animation>(); 
-
-
-
         errorText1 = GameObject.FindGameObjectWithTag("CutPosition1Error");
         errorText1.SetActive(false);
         errorText2 = GameObject.FindGameObjectWithTag("CutPosition2Error");
@@ -138,20 +114,11 @@ public class ChildGeneration : MonoBehaviour
         return ControlPoint_Poss;
     }
 
-    public void anim_saveChild()
-    {
-        anim_randomUp.Play("randomUp");
-        anim_generateChildUp.Play("generationUp");
-        anim_saveChildIN.Play("saveChildIN");
-    }
-
-    public void anim_saveChildOut()
-    {
-        anim_randomUp.Play("randomDown");
-        anim_generateChildUp.Play("generationDown");
-        anim_saveChildIN.Play("saveChildOut");
-    }
-
+    /* Metodo attivato quando utente schiccia bottone Save.
+    Attiva il salvataggio del figlio sotto forma di json.
+    L'utente ha la possibilità di scegliere il nome del file.
+    Agisce anche sulla UI, aggiungendo il nome del nuovo file
+    nel DropDown menu. */
     public void saveChild()
     {   
         string fileName = childName.text;
@@ -183,6 +150,8 @@ public class ChildGeneration : MonoBehaviour
         parent2Choice.RefreshShownValue();
     }
 
+    /* Classe serializzare. Fatta per salvare, a scelta dell'utente, i punti
+    di controllo del figlio sotto forma di json. */
     [Serializable]
     public class ChildContainer{
         public Vector3[] CP_surface;
@@ -197,38 +166,6 @@ public class ChildGeneration : MonoBehaviour
     to selecet the type of crossover that we will use */
     public void crossoverType(Int32 type)
     {
-        switch(type){
-            //Single cut
-            case 0:
-            {
-                if(crossover ==1)
-                {
-                    anim_CutPosition2.Play("cutPosition2Reverse");
-                    anim_ToggleMutation.Play("DownToggleButtonReverse");
-                }
-                else if(crossover==2){
-                    anim_ToggleMutation.Play("DownToggleButtonMid");
-                    anim_CutPosition1.Play();
-                }
-            } break;
-
-            //Double cut
-            case 1:
-            {
-                anim_CutPosition1.Play();
-                anim_CutPosition2.Play();
-                anim_ToggleMutation.Play("DownToggleButton");
-            } break;
-
-            //Uniform Cut
-            case 2:
-            {
-                anim_CutPosition1.Play("cutPosition1Reverse");
-                anim_CutPosition2.Play("cutPosition2Reverse");
-                anim_ToggleMutation.Play("DownToggleButtonReverseTotal");
-            } break;
-        }
-
         crossover = type;
     }
 
@@ -239,17 +176,19 @@ public class ChildGeneration : MonoBehaviour
         mutation = tmp_mutatition;
     }
 
+    /* Recupera il numero di punti di controllo dall'InputField Relativo.
+    Così da poterr controllare se i tagli inseriti nei corrispettivi input field
+    sono corretti se non è stata usata la modalità random. */
     public void CPnumber(string cpNumber)
     {
         if(Mathf.Sqrt(int.Parse(cpNumber)) % 1 ==0 && int.Parse(cpNumber) <=144)
         {
             controlPoints_number = int.Parse(cpNumber);
-            errorText1.SetActive(false);
-            errorText2.SetActive(false);
         }
     }
 
-    /* Metodo che recupare la posizione del taglio uno dall'input field */
+    /* Metodo che recupare la posizione del taglio uno dall'input field.
+    Disattiva/Attiva scritta di errore nella UI se necessario. */
     public void cutPosition1(string cut)
     {
         if(!string.Equals(cut, "Random"))
@@ -270,7 +209,8 @@ public class ChildGeneration : MonoBehaviour
     }
 
     /* Metodo che recupare la posizione del taglio 2 dall'input field
-    se è selezionata l'opzione doppio taglio */
+    se è selezionata l'opzione doppio taglio.
+    Disattiva/Attiva scritta di errore se necessario nella UI */
     public void cutPosition2(string cut)
     {
         if(!string.Equals(cut, "Random"))
@@ -292,7 +232,8 @@ public class ChildGeneration : MonoBehaviour
         }
     }
 
-    /* Metodo che resetta gli Input field a Random */
+    /* Metodo che resetta gli Input field a Random 
+    Modfica anche testo nella UI*/
     public void Randomization()
     {
         cutFromTheUser = false;

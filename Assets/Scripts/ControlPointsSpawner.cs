@@ -22,10 +22,6 @@ public class ControlPointsSpawner : MonoBehaviour
     public TMP_Dropdown parent1Choice;
     public TMP_Dropdown parent2Choice;
 
-    int choiceParent1 = 0;
-    int choiceParent2 = 0;
-
-
     public Camera myCamera;
     
 

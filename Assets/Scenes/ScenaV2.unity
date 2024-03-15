@@ -425,7 +425,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 174.35645, y: 275}
+  m_AnchoredPosition: {x: 174.35645, y: 277}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &130696304
@@ -657,7 +657,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Random\n\u200B"
+  m_text: "Random\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -855,14 +855,14 @@ RectTransform:
   m_GameObject: {fileID: 301628195}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25648928, y: 0.26059312, z: 0.26059312}
+  m_LocalScale: {x: 0.3393353, y: 0.26059312, z: 0.26059312}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1741399741}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -37.1, y: -0}
+  m_AnchoredPosition: {x: 12.3, y: -0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &301628197
@@ -948,7 +948,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 18.344578, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1546,12 +1546,8 @@ MonoBehaviour:
   ControlPointSurface_due: {fileID: 1140293321}
   ControlPointSurface_child: {fileID: 1653823016}
   controlPoint: {fileID: 4001395151064204863, guid: d234c148b443dd34b9aa6770e4f55d2b, type: 3}
-  CutPosition1_InputField: {fileID: 1842088011}
-  CutPosition2_InputField: {fileID: 1960474849}
-  toggleMutation: {fileID: 1741399740}
-  generateChildButton: {fileID: 776300622}
-  saveChildButton: {fileID: 2141323650}
-  randomButton: {fileID: 1091523604}
+  CutPosition1_InputField: {fileID: 1842088013}
+  CutPosition2_InputField: {fileID: 1960474853}
   parent1Choice: {fileID: 904601146}
   parent2Choice: {fileID: 1830836446}
   childName: {fileID: 2075045109}
@@ -2024,6 +2020,18 @@ MonoBehaviour:
           m_StringArgument: 1
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1624005996}
+        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+        m_MethodName: anim_crossoverType
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &554043741
 MonoBehaviour:
@@ -2097,7 +2105,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 174.35645, y: 334}
+  m_AnchoredPosition: {x: 174.35645, y: 335}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &582530596
@@ -2947,8 +2955,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 387744978}
-        m_TargetAssemblyTypeName: ChildGeneration, Assembly-CSharp
+      - m_Target: {fileID: 1624005996}
+        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
         m_MethodName: anim_saveChild
         m_Mode: 1
         m_Arguments:
@@ -5510,8 +5518,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 387744978}
-        m_TargetAssemblyTypeName: ChildGeneration, Assembly-CSharp
+      - m_Target: {fileID: 1624005996}
+        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
+        m_MethodName: CPnumber
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1624005996}
+        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
         m_MethodName: anim_saveChildOut
         m_Mode: 1
         m_Arguments:
@@ -6077,6 +6097,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5f51546f653181429adb6cb98cdda40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CutPosition1_InputField: {fileID: 1842088013}
+  CutPosition2_InputField: {fileID: 1960474853}
+  toggleMutation: {fileID: 1741399742}
+  generateChildButton: {fileID: 776300624}
+  saveChildButton: {fileID: 2141323652}
+  randomButton: {fileID: 1091523606}
   myCamera: {fileID: 1675983074}
 --- !u!1 &1645618077
 GameObject:
@@ -6135,7 +6161,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Random\n\u200B"
+  m_text: "Random\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6748,7 +6774,7 @@ RectTransform:
   m_GameObject: {fileID: 1741399740}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.8987987, y: 3.837401, z: 3.837401}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 301628196}
@@ -6758,8 +6784,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 93, y: 264}
-  m_SizeDelta: {x: 160, y: 20}
+  m_AnchoredPosition: {x: -85, y: 257.8}
+  m_SizeDelta: {x: 90, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1741399742
 MonoBehaviour:
@@ -6949,8 +6975,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 387744978}
-        m_TargetAssemblyTypeName: ChildGeneration, Assembly-CSharp
+      - m_Target: {fileID: 1624005996}
+        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
         m_MethodName: anim_saveChildOut
         m_Mode: 1
         m_Arguments:
@@ -7170,8 +7196,8 @@ MonoBehaviour:
   ContainerControlPoints: {fileID: 1653823017}
   ControlPoint_Poss: []
   SurfacePointPositions: []
-  Num_in_V_Direction: 25
-  Num_in_U_Direction: 25
+  Num_in_V_Direction: 10
+  Num_in_U_Direction: 10
 --- !u!4 &1771876450
 Transform:
   m_ObjectHideFlags: 0
@@ -7757,9 +7783,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: 'Random
-
-'
+  m_Text: Random
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -8842,9 +8866,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: 'Random
-
-'
+  m_Text: Random
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -9528,8 +9550,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 387744978}
-        m_TargetAssemblyTypeName: ChildGeneration, Assembly-CSharp
+      - m_Target: {fileID: 1624005996}
+        m_TargetAssemblyTypeName: UI_Manager, Assembly-CSharp
         m_MethodName: anim_saveChildOut
         m_Mode: 1
         m_Arguments:
@@ -9615,14 +9637,14 @@ SceneRoots:
   m_Roots:
   - {fileID: 1675983075}
   - {fileID: 250732559}
-  - {fileID: 1624005995}
   - {fileID: 1428781641}
   - {fileID: 1006484192}
+  - {fileID: 1624005995}
   - {fileID: 387744979}
   - {fileID: 2039597186}
   - {fileID: 758736760}
   - {fileID: 1140293322}
+  - {fileID: 1653823017}
   - {fileID: 1549182931}
   - {fileID: 364657265}
-  - {fileID: 1653823017}
   - {fileID: 1771876450}

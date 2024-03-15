@@ -23,10 +23,10 @@ public class BezierSurface : MonoBehaviour
     private int[] triangles;
 
     // Number of point in V direction
-    public int Num_in_V_Direction= 50;
+    public int Num_in_V_Direction= 10;
 
     // Number of point in u direction
-    public int Num_in_U_Direction = 50;
+    public int Num_in_U_Direction = 10;
     
 
     // Start is called before the first frame update
