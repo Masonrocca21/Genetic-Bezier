@@ -32,6 +32,7 @@ public class ControlPoints : MonoBehaviour
 
     }
 
+    /* TODO */
     private void OnMouseDrag()
     {
         Vector3 curPos = new Vector3(Input.mousePosition.x - posX, Input.mousePosition.y - posY, Dist.z);
@@ -41,6 +42,7 @@ public class ControlPoints : MonoBehaviour
         //Debug.Log("Muovi punto di controllo");
     }
 
+    /* TODO */
     private void Check_distance(Vector3 new_pos)
     {
         Vector2 Aux = new Vector2((new_pos - Inizial_pos).x, (new_pos - Inizial_pos).z);   

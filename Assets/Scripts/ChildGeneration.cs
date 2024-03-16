@@ -133,7 +133,7 @@ public class ChildGeneration : MonoBehaviour
             int number = Directory.GetFiles("./SavedChild/", "*").Length;
             ChildContainer figlio= new ChildContainer(Child.ToArray());
             child = JsonUtility.ToJson(figlio, true);
-            System.IO.File.WriteAllText("./SavedChild/child"+(number+1)+".json", child);
+            System.IO.File.WriteAllText("./SavedChild/child"+(number+1)+"."+figlio.CP_surface.Length+".json", child);
 
             parent1Choice.options.Add(new TMP_Dropdown.OptionData("child"+(number+1), null));
             parent2Choice.options.Add(new TMP_Dropdown.OptionData("child"+(number+1), null));
@@ -141,7 +141,7 @@ public class ChildGeneration : MonoBehaviour
         else{
             ChildContainer figlio= new ChildContainer(Child.ToArray());
             child = JsonUtility.ToJson(figlio, true);
-            System.IO.File.WriteAllText("./SavedChild/"+fileName+".json", child);
+            System.IO.File.WriteAllText("./SavedChild/"+fileName+"."+figlio.CP_surface.Length+".json", child);
 
             parent1Choice.options.Add(new TMP_Dropdown.OptionData(fileName, null));
             parent2Choice.options.Add(new TMP_Dropdown.OptionData(fileName, null));

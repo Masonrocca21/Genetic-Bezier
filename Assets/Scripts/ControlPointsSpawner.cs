@@ -30,7 +30,7 @@ public class ControlPointsSpawner : MonoBehaviour
     {
         spawnControlPoints();
 
-        initializeParentChoice();
+        refreshDropDownParentChoice();
     }
 
     /** Method that spaw the control points of the two parent in the scene
@@ -61,6 +61,7 @@ public class ControlPointsSpawner : MonoBehaviour
         }
     }
 
+    /* TODO */
     [Serializable]
     public class ChildContainer{
         public Vector3[] CP_surface;
@@ -71,51 +72,68 @@ public class ControlPointsSpawner : MonoBehaviour
         }
     }
 
+    /* TODO */
     public void getParent1(Int32 position)
     {
         if(Directory.Exists("./SavedChild"))
         {
-            string[] savedChild= Directory.GetFiles("./SavedChild/").OrderBy(d => new FileInfo(d).CreationTime).ToArray();;
+            string[] savedChild= Directory.GetFiles("./SavedChild/").OrderBy(d => new FileInfo(d).CreationTime).ToArray();
 
-            ChildContainer parent = JsonUtility.FromJson<ChildContainer>(File.ReadAllText(savedChild[position]));
+            List<string> newSavedChild;
+            newSavedChild = savedChild.Where(d => int.Parse(d.Substring(13, d.Length-18).Split(".")[1]) == controlPointsNumber).ToList();
+            ChildContainer parent = JsonUtility.FromJson<ChildContainer>(File.ReadAllText(newSavedChild.ElementAt(position)));
+
             spawnParent(parent.CP_surface, controlPoints_Surface1);
         }
     }
     
+    /* TODO */
     public void getParent2(Int32 position)
     {
         if(Directory.Exists("./SavedChild"))
         {
             string[] savedChild= Directory.GetFiles("./SavedChild/").OrderBy(d => new FileInfo(d).CreationTime).ToArray();
 
-            ChildContainer parent = JsonUtility.FromJson<ChildContainer>(File.ReadAllText(savedChild[position]));
+            List<string> newSavedChild;
+            newSavedChild = savedChild.Where(d => int.Parse(d.Substring(13, d.Length-18).Split(".")[1]) == controlPointsNumber).ToList();
+            ChildContainer parent = JsonUtility.FromJson<ChildContainer>(File.ReadAllText(newSavedChild.ElementAt(position)));
+
             spawnParent(parent.CP_surface, controlPoints_Surface2);
         }
     }
 
+    /* TODO */
     private void spawnParent(Vector3[] parent, GameObject id)
     {   
         int limit = parent.Length;
-
         for(int i=0; i< limit; i++)
         {
             id.transform.GetChild(i).transform.position = id.transform.position + parent[i];
         }
     }
 
-    public void initializeParentChoice()
+    /* TODO */
+    public void refreshDropDownParentChoice()
     {
         if(Directory.Exists("./SavedChild"))
-        {
+        {   
             string[] savedChild= Directory.GetFiles("./SavedChild/").OrderBy(d => new FileInfo(d).CreationTime).ToArray();
             int n_child = savedChild.Length;
 
+            parent1Choice.ClearOptions();
+            parent2Choice.ClearOptions();
+            
             foreach (string tmp in savedChild)
-            {
-                parent1Choice.options.Add(new TMP_Dropdown.OptionData(tmp.Substring(13, tmp.Length-18), null));
-                parent2Choice.options.Add(new TMP_Dropdown.OptionData(tmp.Substring(13, tmp.Length-18), null));
-            }
+            {   
+                string fileName = tmp.Substring(13, tmp.Length-18).Split(".")[0];
+                int cp_number = int.Parse(tmp.Substring(13, tmp.Length-18).Split(".")[1]);
 
+                if(cp_number == controlPointsNumber)
+                {
+                    parent1Choice.options.Add(new TMP_Dropdown.OptionData(fileName, null));
+                    parent2Choice.options.Add(new TMP_Dropdown.OptionData(fileName, null));
+                }
+            }
             parent1Choice.RefreshShownValue();
             parent2Choice.RefreshShownValue();
         }
