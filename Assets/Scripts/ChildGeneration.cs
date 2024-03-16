@@ -39,9 +39,9 @@ public class ChildGeneration : MonoBehaviour
 
     private void Start() {
         errorText1 = GameObject.FindGameObjectWithTag("CutPosition1Error");
-        errorText1.SetActive(false);
+        errorText1.GetComponent<TMP_Text>().enabled = false;
         errorText2 = GameObject.FindGameObjectWithTag("CutPosition2Error");
-        errorText2.SetActive(false);
+        errorText2.GetComponent<TMP_Text>().enabled = false;
     }
 
     public void StartGenetics()
@@ -181,9 +181,11 @@ public class ChildGeneration : MonoBehaviour
     sono corretti se non è stata usata la modalità random. */
     public void CPnumber(string cpNumber)
     {
-        if(Mathf.Sqrt(int.Parse(cpNumber)) % 1 ==0 && int.Parse(cpNumber) <=144)
+        if(Mathf.Sqrt(int.Parse(cpNumber)) % 1 ==0 && 1 < int.Parse(cpNumber) && int.Parse(cpNumber) <= 36)
         {
             controlPoints_number = int.Parse(cpNumber);
+            CutPosition1 = controlPoints_number-1;
+            CutPosition2 = controlPoints_number-1;
         }
     }
 
@@ -196,13 +198,13 @@ public class ChildGeneration : MonoBehaviour
             int taglio = int.Parse(cut);
             if(0 < taglio && taglio < CutPosition2 && CutPosition2 < controlPoints_number){
                 CutPosition1 = taglio;
-                errorText1.SetActive(false);
+                errorText1.GetComponent<TMP_Text>().enabled = false;
                 cutFromTheUser = true;
             }
             else
             {
                 CutPosition1 = taglio;
-                errorText1.SetActive(true);
+                errorText1.GetComponent<TMP_Text>().enabled = true;
                 cutFromTheUser = false;
             }
         }
@@ -219,14 +221,14 @@ public class ChildGeneration : MonoBehaviour
             if(0 < CutPosition1 && CutPosition1 < taglio && taglio < controlPoints_number)
             {
                 CutPosition2 = taglio;
-                errorText2.SetActive(false);
-                errorText1.SetActive(false);
+                errorText2.GetComponent<TMP_Text>().enabled = false;
+                errorText1.GetComponent<TMP_Text>().enabled = false;
                 cutFromTheUser = true;
             }
             else
             {
                 CutPosition2 = taglio;
-                errorText2.SetActive(true);
+                errorText2.GetComponent<TMP_Text>().enabled = true;
                 cutFromTheUser = false;
             }
         }
@@ -237,8 +239,8 @@ public class ChildGeneration : MonoBehaviour
     public void Randomization()
     {
         cutFromTheUser = false;
-        errorText1.SetActive(false);
-        errorText2.SetActive(false);
+        errorText1.GetComponent<TMP_Text>().enabled = false;
+        errorText2.GetComponent<TMP_Text>().enabled = false;
 
         CutPosition1 = controlPoints_number-1;
         CutPosition2 = controlPoints_number-1;

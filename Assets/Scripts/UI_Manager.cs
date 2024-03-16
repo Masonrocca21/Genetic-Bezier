@@ -97,10 +97,10 @@ public class UI_Manager : MonoBehaviour
 
     public void CPnumber(string cpNumber)
     {
-        if(Mathf.Sqrt(int.Parse(cpNumber)) % 1 ==0 && int.Parse(cpNumber) <=144)
+        if(Mathf.Sqrt(int.Parse(cpNumber)) % 1 ==0 && 1 < int.Parse(cpNumber) && int.Parse(cpNumber) <= 36)
         {
-            errorText1.SetActive(false);
-            errorText2.SetActive(false);
+            errorText1.GetComponent<TMP_Text>().enabled = false;
+            errorText2.GetComponent<TMP_Text>().enabled = false;
         }
     }
 }

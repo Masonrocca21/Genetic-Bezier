@@ -193,7 +193,7 @@ public class ControlPointsSpawner : MonoBehaviour
     After the input is given by the User, we start to make spanw the control Points. */
     public void readStringInput(string numberOfControlPoints)
     {
-        if(Mathf.Sqrt(int.Parse(numberOfControlPoints)) % 1 ==0 && int.Parse(numberOfControlPoints) <=144)
+        if(Mathf.Sqrt(int.Parse(numberOfControlPoints)) % 1 ==0 && 1 < int.Parse(numberOfControlPoints) && int.Parse(numberOfControlPoints) <= 36)
         {
             controlPointsNumber = int.Parse(numberOfControlPoints);
         }

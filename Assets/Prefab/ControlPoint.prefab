@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: -6756799123303913564}
   - component: {fileID: 2573041144390587452}
   - component: {fileID: 3743865449401107460}
-  - component: {fileID: -6374307734449699881}
+  - component: {fileID: 4107978137779922823}
   m_Layer: 0
   m_Name: ControlPoint
   m_TagString: Untagged
@@ -107,7 +107,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &-6374307734449699881
+--- !u!114 &4107978137779922823
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,4 +119,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88af76676c6d44582bfe4779eb3267e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  limit: 5
   myCamera: {fileID: 0}
