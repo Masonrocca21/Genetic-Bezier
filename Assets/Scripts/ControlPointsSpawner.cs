@@ -205,6 +205,12 @@ public class ControlPointsSpawner : MonoBehaviour
         }
     }
 
+    public void MakeDefault()
+    {
+        parent1Choice.SetValueWithoutNotify(0);
+        parent2Choice.SetValueWithoutNotify(0);
+    }
+
     /* Method connected to an input field in the UI, that the user can use
     to give the number of control points.
     This number mast be a perfect square and less than 144.
