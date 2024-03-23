@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class BezierSurface : MonoBehaviour
@@ -44,7 +45,7 @@ public class BezierSurface : MonoBehaviour
         calculateBezierSurface();
         MakeMesh();
     }
-    
+
     private void generateControlPointsList()
     {
         ControlPoint_Poss = new List<Vector3>();
@@ -171,6 +172,6 @@ public class BezierSurface : MonoBehaviour
         mesh.triangles = triangles;
         mesh.RecalculateNormals();
          
-        this.GetComponent<MeshFilter>().sharedMesh = mesh;
+        GetComponent<MeshFilter>().sharedMesh = mesh;
     }
 }
