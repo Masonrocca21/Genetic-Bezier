@@ -76,6 +76,4 @@ crashlytics-build.properties
 
 
 #MyRule
-/SavedChild/*.json
-!Default.*.json
-!TestSet.*.json
+SavedChild/*.json

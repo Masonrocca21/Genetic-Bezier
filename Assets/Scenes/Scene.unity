@@ -9120,6 +9120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2039597186}
   - component: {fileID: 2039597187}
+  - component: {fileID: 2039597188}
   m_Layer: 0
   m_Name: ControlPointsSpawner
   m_TagString: Untagged
@@ -9161,6 +9162,18 @@ MonoBehaviour:
   parent1Choice: {fileID: 904601146}
   parent2Choice: {fileID: 1830836446}
   myCamera: {fileID: 1675983074}
+--- !u!114 &2039597188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2039597185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ffcc69abcb61e94bbd17d0c3b50c20a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2074929770
 GameObject:
   m_ObjectHideFlags: 0
